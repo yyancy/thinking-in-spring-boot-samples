@@ -16,13 +16,19 @@
  */
 package thinking.in.spring.boot.samples.spring5.bootstrap;
 
+import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
+import org.springframework.stereotype.Repository;
 import thinking.in.spring.boot.samples.spring5.annotation.TransactionalService;
+import thinking.in.spring.boot.samples.spring5.env.TestEnvironment;
 
+import javax.print.MultiDocPrintService;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -32,6 +38,7 @@ import java.util.Set;
  * @since 1.0.0
  */
 @TransactionalService
+@Repository
 public class TransactionalServiceAnnotationMetadataBootstrap {
 
     public static void main(String[] args) throws IOException {
@@ -44,6 +51,7 @@ public class TransactionalServiceAnnotationMetadataBootstrap {
         // 读取 @TransactionService AnnotationMetadata 信息
         AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();
 
+
         annotationMetadata.getAnnotationTypes().forEach(annotationType -> {
 
             Set<String> metaAnnotationTypes = annotationMetadata.getMetaAnnotationTypes(annotationType);
@@ -53,5 +61,14 @@ public class TransactionalServiceAnnotationMetadataBootstrap {
             });
 
         });
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("user","${default-user}");
+        values.put("default-user","yancy");
+
+
+        TestEnvironment env = new TestEnvironment();
+        env.getPropertySources().addFirst(new MapPropertySource("values",values));
+        System.out.println(env.getProperty("user"));
     }
 }

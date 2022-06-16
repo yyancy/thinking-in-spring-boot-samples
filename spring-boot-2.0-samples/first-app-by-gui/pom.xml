@@ -6,7 +6,7 @@
 	<groupId>thinking-in-spring-boot</groupId>
 	<artifactId>first-app-by-gui</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>《Spring Boot 编程思想》图形化构建 Spring Boot 应用</name>
 
