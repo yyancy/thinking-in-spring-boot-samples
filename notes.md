@@ -53,3 +53,7 @@ or `@ImportResource` annotations and `@Bean` method
 ## NOTE
 
 * If you want to use java standard reflection to get metadata from a class, you must be sure that the class is loaded by a `ClassLoader`
+* Since AOP auto-proxying is implemented as a BeanPostProcessor itself, no BeanPostProcessors
+  or directly referenced beans are eligible for auto-proxying; when a bean is created during BeanPostProcessor instantiation, i.e. when
+  a bean is not eligible for getting processed by all BeanPostProcessors. further information read at `org.springframework.context.support.AbstractApplicationContext#registerBeanPostProcessors()`
+  note: `beanfacoty#getBean()` method will invoke beanPostProcessor's method.
