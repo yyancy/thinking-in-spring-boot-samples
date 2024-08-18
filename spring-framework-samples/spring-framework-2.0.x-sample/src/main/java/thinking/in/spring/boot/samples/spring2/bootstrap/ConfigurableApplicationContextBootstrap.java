@@ -19,6 +19,10 @@ package thinking.in.spring.boot.samples.spring2.bootstrap;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
+
 /**
  * 可配置的 Spring {@link ApplicationContext} 引导类
  *
@@ -36,6 +40,10 @@ public class ConfigurableApplicationContextBootstrap {
     }
 
     public static void main(String[] args) {
+        Executors.newCachedThreadPool();
+        Executors.newCachedThreadPool();
+        ArrayList<Object> objectsl = new ArrayList<>();
+        objectsl.stream().collect(Collectors.groupingBy((e)->e,Integer::sum));
         // 定义 XML ApplicationContext
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("META-INF/configurable-context.xml");
         // "name" bean 对象
